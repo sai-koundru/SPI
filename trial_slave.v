@@ -1,4 +1,4 @@
-module trial_slave
+module spi_slave
 (
     input sclk,
     input mosi,
