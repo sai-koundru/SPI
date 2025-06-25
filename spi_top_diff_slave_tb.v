@@ -1,7 +1,7 @@
 
 `timescale 1ns/1ps
 
-module spi_top_diff_slave_tb;
+module top_spi_tb;
 
     reg clk = 0;
     reg trigger = 0;
@@ -10,13 +10,12 @@ module spi_top_diff_slave_tb;
     wire [31:0] dout;
     wire trigger_out;
 
-    spi_top_diff_slave uut ( .clk(clk), .trigger(trigger), .din(din), .dout(dout), .trigger_out(trigger_out)  );
+    top_spi_tb uut ( .clk(clk), .trigger(trigger), .din(din), .dout(dout), .trigger_out(trigger_out)  );
 
     always #5 clk = ~clk;  
 
-    initial begin
-        $dumpfile("spi_top_diff_slave_tb.vcd");
-        $dumpvars(0, spi_top_diff_slave_tb);
+    initial 
+        begin
 
         #20;
         trigger = 1;
@@ -24,7 +23,8 @@ module spi_top_diff_slave_tb;
         #10;
         trigger = 0;
 
-        #4000;  // wait enough time for full transfer
+        #4000; 
+            
         $display("Received Data: %h", dout);
         $finish;
     end
